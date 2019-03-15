@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://tiller2008.github.io/"/>
-  <updated>2019-03-01T11:02:18.264Z</updated>
+  <updated>2019-03-15T03:14:44.298Z</updated>
   <id>http://tiller2008.github.io/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Spring Boot 2.x和Spring Security 5.x后禁用认证</title>
+    <link href="http://tiller2008.github.io/2019/03/15/Spring-Boot-2-x%E5%92%8CSpring-Security-5-x%E5%90%8E%E7%A6%81%E7%94%A8%E8%AE%A4%E8%AF%81/"/>
+    <id>http://tiller2008.github.io/2019/03/15/Spring-Boot-2-x和Spring-Security-5-x后禁用认证/</id>
+    <published>2019-03-15T03:11:03.000Z</published>
+    <updated>2019-03-15T03:14:44.298Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Spring-Boot-2-x和Spring-Security-5-x前禁用认证"><a href="#Spring-Boot-2-x和Spring-Security-5-x前禁用认证" class="headerlink" title="Spring Boot 2.x和Spring Security 5.x前禁用认证"></a>Spring Boot 2.x和Spring Security 5.x前禁用认证</h2><p>在application.yml或application.properties中加入这么一段(yml与properties差异请自行搜索，这里示意)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">security.basic.enabled=false</span><br><span class="line">management.security.enabled=false</span><br></pre></td></tr></table></figure></p><p>这样可以禁用掉弹出的用户名及密码输入<br><a id="more"></a></p><h2 id="Spring-Boot-2-x和Spring-Security-5-x后禁用认证"><a href="#Spring-Boot-2-x和Spring-Security-5-x后禁用认证" class="headerlink" title="Spring Boot 2.x和Spring Security 5.x后禁用认证"></a>Spring Boot 2.x和Spring Security 5.x后禁用认证</h2><p>由于改版之后，如下的一些配置均废弃<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">security.basic.authorize-mode</span><br><span class="line">security.basic.enabled</span><br><span class="line">security.basic.path</span><br><span class="line">security.basic.realm</span><br><span class="line">security.enable-csrf</span><br><span class="line">security.headers.cache</span><br><span class="line">security.headers.content-security-policy</span><br><span class="line">security.headers.content-security-policy-mode</span><br><span class="line">security.headers.content-type</span><br><span class="line">security.headers.frame</span><br><span class="line">security.headers.hsts</span><br><span class="line">security.headers.xss</span><br><span class="line">security.ignored</span><br><span class="line">security.require-ssl</span><br><span class="line">security.sessions</span><br></pre></td></tr></table></figure></p><p>导致即使按照上面的配置配好后也无法生效</p><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>参照地址: <a href="https://stackoverflow.com/questions/23894010/spring-boot-security-disable-security" target="_blank" rel="noopener">stackoverflow</a></p><p>在启动类前的<code>@SpringBootApplication</code>注解中加入<code>exclude</code>属性<code>SecurityAutoConfiguration</code>和<code>ManagementWebSecurityAutoConfiguration</code>，以排除安全认证<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span>(exclude = &#123;SecurityAutoConfiguration.class, </span><br><span class="line">        ManagementWebSecurityAutoConfiguration.class&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Spring-Boot-2-x和Spring-Security-5-x前禁用认证&quot;&gt;&lt;a href=&quot;#Spring-Boot-2-x和Spring-Security-5-x前禁用认证&quot; class=&quot;headerlink&quot; title=&quot;Spring Boot 2.x和Spring Security 5.x前禁用认证&quot;&gt;&lt;/a&gt;Spring Boot 2.x和Spring Security 5.x前禁用认证&lt;/h2&gt;&lt;p&gt;在application.yml或application.properties中加入这么一段(yml与properties差异请自行搜索，这里示意)&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;security.basic.enabled=false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;management.security.enabled=false&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;这样可以禁用掉弹出的用户名及密码输入&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="安全" scheme="http://tiller2008.github.io/tags/%E5%AE%89%E5%85%A8/"/>
+    
+      <category term="JAVA" scheme="http://tiller2008.github.io/tags/JAVA/"/>
+    
+      <category term="后端" scheme="http://tiller2008.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+      <category term="Spring Security" scheme="http://tiller2008.github.io/tags/Spring-Security/"/>
+    
+  </entry>
+  
+  <entry>
     <title>根据数据库反向生成文档工具MySQL-&gt;MD</title>
     <link href="http://tiller2008.github.io/2019/03/01/%E6%A0%B9%E6%8D%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8D%E5%90%91%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3%E5%B7%A5%E5%85%B7MySQL-MD/"/>
     <id>http://tiller2008.github.io/2019/03/01/根据数据库反向生成文档工具MySQL-MD/</id>
     <published>2019-03-01T04:37:43.000Z</published>
-    <updated>2019-03-01T11:02:18.264Z</updated>
+    <updated>2019-03-12T02:49:30.306Z</updated>
     
     <content type="html"><![CDATA[<h1 id="db-doc-generator"><a href="#db-doc-generator" class="headerlink" title="db-doc-generator"></a>db-doc-generator</h1><blockquote><p>目前仅支持MySQL数据库和MD文档</p></blockquote><p>从MySQL反向生成MD的数据库文档的工具，希望可以帮到需要的人</p><blockquote><p>由于是适配到我的微服务架构中的，所以同时需要下载<code>chg-dependencies</code>和<code>chg-common</code>两个工程，方可运行</p><p>若喜欢的话，可以Star或Follow以下支持作者</p><p>也欢迎各位加入一起丰富该项目，共同成长</p></blockquote><p><a href="https://github.com/tiller2008/chg-utils" target="_blank" rel="noopener">Github地址</a><br><a id="more"></a></p><h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul><li>Spring Boot</li><li>JAVA 8 Stream API和lambda表达式</li><li>Guava</li><li>Maven</li></ul><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ol><li>在application.yml中配置相关数据库信息</li><li>在测试类中自动注入Doc接口，调用buildDoc方法，则在屏幕中打印出相应的结果</li></ol><p><img src="https://user-gold-cdn.xitu.io/2019/2/26/1692799b99502eb8?w=249&amp;h=93&amp;f=png&amp;s=5922" alt="buildDOc"></p><p><strong>显示结果</strong></p><p><img src="https://raw.githubusercontent.com/tiller2008/chg-utils/master/db-doc-generator/main/src/resources/images/样例.png" alt="样例"></p><h2 id="后续任务（待完善）"><a href="#后续任务（待完善）" class="headerlink" title="后续任务（待完善）"></a>后续任务（待完善）</h2><ol><li>支持多数据库</li><li>maven插件化</li></ol>]]></content>
     
@@ -41,11 +68,11 @@
     </summary>
     
     
-      <category term="自研工具" scheme="http://tiller2008.github.io/tags/%E8%87%AA%E7%A0%94%E5%B7%A5%E5%85%B7/"/>
-    
       <category term="JAVA" scheme="http://tiller2008.github.io/tags/JAVA/"/>
     
       <category term="后端" scheme="http://tiller2008.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+      <category term="自研工具" scheme="http://tiller2008.github.io/tags/%E8%87%AA%E7%A0%94%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   

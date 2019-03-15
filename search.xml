@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Spring Boot 2.x和Spring Security 5.x后禁用认证]]></title>
+    <url>%2F2019%2F03%2F15%2FSpring-Boot-2-x%E5%92%8CSpring-Security-5-x%E5%90%8E%E7%A6%81%E7%94%A8%E8%AE%A4%E8%AF%81%2F</url>
+    <content type="text"><![CDATA[Spring Boot 2.x和Spring Security 5.x前禁用认证在application.yml或application.properties中加入这么一段(yml与properties差异请自行搜索，这里示意)12security.basic.enabled=falsemanagement.security.enabled=false 这样可以禁用掉弹出的用户名及密码输入 Spring Boot 2.x和Spring Security 5.x后禁用认证由于改版之后，如下的一些配置均废弃123456789101112131415security.basic.authorize-modesecurity.basic.enabledsecurity.basic.pathsecurity.basic.realmsecurity.enable-csrfsecurity.headers.cachesecurity.headers.content-security-policysecurity.headers.content-security-policy-modesecurity.headers.content-typesecurity.headers.framesecurity.headers.hstssecurity.headers.xsssecurity.ignoredsecurity.require-sslsecurity.sessions 导致即使按照上面的配置配好后也无法生效 解决方案参照地址: stackoverflow 在启动类前的@SpringBootApplication注解中加入exclude属性SecurityAutoConfiguration和ManagementWebSecurityAutoConfiguration，以排除安全认证1234567@SpringBootApplication(exclude = &#123;SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class&#125;)public class DemoApplication &#123; public static void main(String[] args) &#123; SpringApplication.run(DemoApplication.class,args); &#125;&#125;]]></content>
+      <tags>
+        <tag>安全</tag>
+        <tag>JAVA</tag>
+        <tag>后端</tag>
+        <tag>Spring Security</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[根据数据库反向生成文档工具MySQL->MD]]></title>
     <url>%2F2019%2F03%2F01%2F%E6%A0%B9%E6%8D%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8D%E5%90%91%E7%94%9F%E6%88%90%E6%96%87%E6%A1%A3%E5%B7%A5%E5%85%B7MySQL-MD%2F</url>
     <content type="text"><![CDATA[db-doc-generator 目前仅支持MySQL数据库和MD文档 从MySQL反向生成MD的数据库文档的工具，希望可以帮到需要的人 由于是适配到我的微服务架构中的，所以同时需要下载chg-dependencies和chg-common两个工程，方可运行 若喜欢的话，可以Star或Follow以下支持作者 也欢迎各位加入一起丰富该项目，共同成长 Github地址 技术栈 Spring Boot JAVA 8 Stream API和lambda表达式 Guava Maven 使用方法 在application.yml中配置相关数据库信息 在测试类中自动注入Doc接口，调用buildDoc方法，则在屏幕中打印出相应的结果 显示结果 后续任务（待完善） 支持多数据库 maven插件化]]></content>
       <tags>
-        <tag>自研工具</tag>
         <tag>JAVA</tag>
         <tag>后端</tag>
+        <tag>自研工具</tag>
       </tags>
   </entry>
 </search>
